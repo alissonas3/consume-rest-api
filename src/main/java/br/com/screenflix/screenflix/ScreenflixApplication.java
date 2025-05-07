@@ -1,5 +1,7 @@
 package br.com.screenflix.screenflix;
 
+import br.com.screenflix.screenflix.model.SerieData;
+import br.com.screenflix.screenflix.service.ConvertData;
 import br.com.screenflix.screenflix.service.RequestsAPI;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,10 +17,12 @@ public class ScreenflixApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		var request = new RequestsAPI();
-
 		var responseData = request.getData("https://www.omdbapi.com/?t=titanic&apikey=849866d8");
-
 		System.out.println(responseData);
+
+		ConvertData convert = new ConvertData();
+		SerieData data = convert.getData(responseData, SerieData.class);
+		System.out.println(data);
 
 	}
 }
