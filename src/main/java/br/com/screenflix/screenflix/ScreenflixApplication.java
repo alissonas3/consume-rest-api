@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.sound.midi.Soundbank;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ScreenflixApplication implements CommandLineRunner {
@@ -21,31 +23,32 @@ public class ScreenflixApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		var request = new RequestsAPI();
-		var responseData = request.getData("https://www.omdbapi.com/?t=titanic&apikey=849866d8");
+		var responseData = request.getData("https://www.omdbapi.com/?t=the+last+of+us&apikey=849866d8");
 		System.out.println(responseData);
 
-		System.out.println("------------------");
-
 		ConvertData convert = new ConvertData();
-		SerieInfo data = convert.getData(responseData, SerieInfo.class);
-		System.out.println(data);
+
+		SerieInfo serie = convert.getData(responseData, SerieInfo.class);
+		System.out.println("Some details from serie: " + serie);
 
 		System.out.println("------------------");
 
-		responseData = request.getData("https://omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=849866d8");
+		responseData = request.getData("https://omdbapi.com/?t=the+last+of+us&season=1&episode=2&apikey=849866d8");
 		EpisodeInfo episode = convert.getData(responseData, EpisodeInfo.class);
-		System.out.println(episode);
+		System.out.println("Some details from a specific episode: " + episode);
 
 		System.out.println("------------------");
 
-		responseData = request.getData("https://omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=849866d8");
-		SeasonInfo season = convert.getData(responseData, SeasonInfo.class);
-		System.out.println(season);
+		List<SeasonInfo> seasons = new ArrayList<>();
 
-//		for(int i = 1; i <= responseData.totalSeasons(); i++) {
-//			responseData = convert.getData("https://www.omdbapi.com/?t=gilmore+girls&season=" + i + "&apikey=6585022c")
-//		}
+		for(int i = 1; i <= serie.seasons(); i++) {
+			responseData = request.getData("https://www.omdbapi.com/?t=the+last+of+us&season=" + i + "&apikey=849866d8");
+			SeasonInfo season = convert.getData(responseData, SeasonInfo.class);
+			seasons.add(season);
+		}
+		seasons.forEach(System.out::println);
 
 
 	}
