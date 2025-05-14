@@ -31,20 +31,22 @@ public class mainMenu {
 
 		System.out.println("------------------");
 
-		responseData = request.getData("https://omdbapi.com/?t=the+last+of+us&season=1&episode=2&apikey=849866d8");
-		EpisodeInfo episode = convert.getData(responseData, EpisodeInfo.class);
-		System.out.println("Some details from a specific episode: " + episode);
-
-		System.out.println("------------------");
+//		responseData = request.getData("https://omdbapi.com/?t=the+last+of+us&season=1&episode=2&apikey=849866d8");
+//		EpisodeInfo episode = convert.getData(responseData, EpisodeInfo.class);
+//		System.out.println("Some details from a specific episode: " + episode);
+//
+//		System.out.println("------------------");
 
 		List<SeasonInfo> seasons = new ArrayList<>();
 
-		for(int i = 1; i < serieDetail.seasons(); i++) {
-			responseData = request.getData("https://www.omdbapi.com/?t=the+last+of+us&season=" + i + "&apikey=849866d8");
+		for(int i = 1; i <= serieDetail.seasons(); i++) {
+			responseData = request.getData(URL + serie.replace(" ", "+") + "&season=" + i + API_KEY);
 			SeasonInfo season = convert.getData(responseData, SeasonInfo.class);
 			seasons.add(season);
 		}
 		seasons.forEach(System.out::println);
+
+        seasons.forEach(t -> t.episodes().forEach(e -> System.out.println(e.title())));
 
     }
 
