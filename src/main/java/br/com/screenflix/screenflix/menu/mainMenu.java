@@ -1,4 +1,5 @@
 package br.com.screenflix.screenflix.menu;
+import br.com.screenflix.screenflix.model.Episode;
 import br.com.screenflix.screenflix.model.EpisodeInfo;
 import br.com.screenflix.screenflix.model.SeasonInfo;
 import br.com.screenflix.screenflix.model.SerieInfo;
@@ -58,6 +59,10 @@ public class mainMenu {
 
 //        episodeInfo.forEach(System.out::println);
 
+        List<EpisodeInfo> episodes = seasons.stream()
+                .flatMap(t -> t.episodes().stream()
+                        .map(d -> new Episode(t.number(), d))
+                ).collect(Collectors.toList());
     }
 
 }
