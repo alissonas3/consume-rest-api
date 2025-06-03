@@ -59,10 +59,12 @@ public class mainMenu {
 
 //        episodeInfo.forEach(System.out::println);
 
-        List<EpisodeInfo> episodes = seasons.stream()
+        List<Episode> episodes = seasons.stream()
                 .flatMap(t -> t.episodes().stream()
                         .map(d -> new Episode(t.number(), d))
                 ).collect(Collectors.toList());
+
+        episodes.forEach(System.out::println);
     }
 
 }

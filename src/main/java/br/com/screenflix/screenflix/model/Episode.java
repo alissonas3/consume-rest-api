@@ -48,4 +48,12 @@ public class Episode {
     public void setRealeasedDate(LocalDate realeasedDate) {
         this.realeasedDate = realeasedDate;
     }
+
+    @Override
+    public String toString() {
+        return "season=" + season +
+                ", title='" + title + '\'' +
+                ", episodeNumber=" + episodeNumber +
+                ", realeasedDate=" + realeasedDate;
+    }
 }
