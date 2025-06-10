@@ -1,19 +1,24 @@
 package br.com.screenflix.screenflix.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Episode {
     private Integer season;
     private String title;
     private Integer episodeNumber;
-//    private Double review;
     private LocalDate realeasedDate;
+    // private Double review;
 
     public Episode(Integer numberSeason, EpisodeInfo episodeInfo) {
         this.season = numberSeason;
         this.title = episodeInfo.title();
         this.episodeNumber = episodeInfo.number();
-        this.realeasedDate = LocalDate.parse(episodeInfo.releasedDate());
+        try {
+            this.realeasedDate = LocalDate.parse(episodeInfo.releasedDate());
+        } catch (DateTimeParseException ex) {
+            this.realeasedDate = null;
+        }
     }
 
 
@@ -51,9 +56,9 @@ public class Episode {
 
     @Override
     public String toString() {
-        return "season=" + season +
-                ", title='" + title + '\'' +
-                ", episodeNumber=" + episodeNumber +
-                ", realeasedDate=" + realeasedDate;
+        return "season = " + season +
+                ", title = " + title + '\'' +
+                ", episodeNumber = " + episodeNumber +
+                ", realeasedDate = " + realeasedDate;
     }
 }

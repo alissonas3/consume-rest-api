@@ -42,23 +42,24 @@ public class mainMenu {
 			SeasonInfo season = convert.getData(responseData, SeasonInfo.class);
 			seasons.add(season);
 		}
-		seasons.forEach(System.out::println);
-        seasons.forEach(t -> t.episodes().forEach(e -> System.out.println(e.title())));
+//		seasons.forEach(System.out::println);
+//        seasons.forEach(t -> t.episodes().forEach(e -> System.out.println(e.title())));
 
 
         System.out.println("TOP 5 EPISODES!");
         List<EpisodeInfo> episodeInfo = seasons.stream()
                 .flatMap(t -> t.episodes().stream())
                 .collect(Collectors.toList());
-
         episodeInfo.stream()
 //                .filter(e -> !e.number().equals("N/A"))
                         .sorted(Comparator.comparing(EpisodeInfo::number).reversed())
                         .limit(5)
                 .forEach(System.out::println);
-
 //        episodeInfo.forEach(System.out::println);
 
+        System.out.println("------------------");
+
+        System.out.println("All episodes across all seasons:");
         List<Episode> episodes = seasons.stream()
                 .flatMap(t -> t.episodes().stream()
                         .map(d -> new Episode(t.number(), d))
