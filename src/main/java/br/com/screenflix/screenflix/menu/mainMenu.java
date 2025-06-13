@@ -6,6 +6,8 @@ import br.com.screenflix.screenflix.model.SerieInfo;
 import br.com.screenflix.screenflix.service.ConvertData;
 import br.com.screenflix.screenflix.service.RequestsAPI;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -66,6 +68,25 @@ public class mainMenu {
                 ).collect(Collectors.toList());
 
         episodes.forEach(System.out::println);
+
+        System.out.println("------------------");
+        System.out.println("Which year would you like to start viewing the episodes from?");
+        var year = reader.nextInt();
+
+        LocalDate searchData = LocalDate.of(year, 1, 1);
+
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        episodes.stream()
+                .filter(e -> e.getRealeasedDate() != null && e.getRealeasedDate().isAfter(searchData))
+                .forEach(e -> System.out.println(
+                        " Season: " + e.getSeason() +
+                            " Episode: " + e.getTitle() +
+                                " Realeased date: " + e.getRealeasedDate().format(formatDate)
+
+                ));
+
+
     }
 
 }
