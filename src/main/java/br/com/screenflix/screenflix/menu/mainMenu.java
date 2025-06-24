@@ -8,10 +8,7 @@ import br.com.screenflix.screenflix.service.RequestsAPI;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class mainMenu {
@@ -34,9 +31,13 @@ public class mainMenu {
         System.out.println("Some details from serie: " + serieDetail);
 		System.out.println("------------------");
 
+
+
 //		responseData = request.getData("https://omdbapi.com/?t=the+last+of+us&season=1&episode=2&apikey=849866d8");
 //		EpisodeInfo episode = convert.getData(responseData, EpisodeInfo.class);
 //		System.out.println("Some details from a specific episode: " + episode);
+
+
 
 		List<SeasonInfo> seasons = new ArrayList<>();
 		for(int i = 1; i <= serieDetail.seasons(); i++) {
@@ -46,6 +47,7 @@ public class mainMenu {
 		}
 //		seasons.forEach(System.out::println);
 //        seasons.forEach(t -> t.episodes().forEach(e -> System.out.println(e.title())));
+
 
 
         System.out.println("TOP 5 EPISODES!");
@@ -58,8 +60,9 @@ public class mainMenu {
                         .limit(5)
                 .forEach(System.out::println);
 //        episodeInfo.forEach(System.out::println);
-
         System.out.println("------------------");
+
+
 
         System.out.println("All episodes across all seasons:");
         List<Episode> episodes = seasons.stream()
@@ -68,23 +71,39 @@ public class mainMenu {
                 ).collect(Collectors.toList());
 
         episodes.forEach(System.out::println);
-
         System.out.println("------------------");
-        System.out.println("Which year would you like to start viewing the episodes from?");
-        var year = reader.nextInt();
 
-        LocalDate searchData = LocalDate.of(year, 1, 1);
 
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        episodes.stream()
-                .filter(e -> e.getRealeasedDate() != null && e.getRealeasedDate().isAfter(searchData))
-                .forEach(e -> System.out.println(
-                        " Season: " + e.getSeason() +
-                            " Episode: " + e.getTitle() +
-                                " Realeased date: " + e.getRealeasedDate().format(formatDate)
+//        System.out.println("Type a snippet of the episode title:");
+//        var snippedTtitle = reader.nextLine();
+//        Optional<Episode> episodeFound = episodes.stream()
+//                .filter(e -> e.getTitle().contains(snippedTtitle))
+//                .findFirst();
+//
+//        if(episodeFound.isPresent()){
+//            System.out.println("Episode found!");
+//            System.out.println("Season: " + episodeFound.get().getSeason());
+//        } else {
+//            System.out.println("Episode not found!");
+//        }
 
-                ));
+
+
+//        System.out.println("Which year would you like to start viewing the episodes from?");
+//        var year = reader.nextInt();
+//
+//        LocalDate searchData = LocalDate.of(year, 1, 1);
+//        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//
+//        episodes.stream()
+//                .filter(e -> e.getRealeasedDate() != null && e.getRealeasedDate().isAfter(searchData))
+//                .forEach(e -> System.out.println(
+//                        " Season: " + e.getSeason() +
+//                            " Episode: " + e.getTitle() +
+//                                " Realeased date: " + e.getRealeasedDate().format(formatDate)
+//
+//                ));
 
 
     }
